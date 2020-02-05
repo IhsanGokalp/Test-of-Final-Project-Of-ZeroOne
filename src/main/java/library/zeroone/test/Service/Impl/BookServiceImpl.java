@@ -1,12 +1,15 @@
 package library.zeroone.test.Service.Impl;
 
 import library.zeroone.test.DTO.BookDTO;
+import library.zeroone.test.DTO.BookInitializeDTO;
+import library.zeroone.test.DTO.BookUpdateDTO;
 import library.zeroone.test.Entities.Book;
 import library.zeroone.test.Mapper.BookMapper;
 import library.zeroone.test.Repository.BookRepository;
 import library.zeroone.test.Service.BookService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,5 +28,22 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> findAll() {
         return bookRepository.findAll().stream().map(bookMapper::toBookDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public BookDTO save(BookInitializeDTO bookInitializeDTO) {
+        Book book = bookMapper.toBook(bookInitializeDTO);
+        Book bookSaved = bookRepository.save(book);
+        return bookMapper.toBookDTO(bookSaved);
+    }
+
+    @Override
+    public BookDTO update(Long id, BookUpdateDTO bookUpdateDTO) {
+        Book bookToBeUpdated = bookRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("No data found with the id " + id));
+
+        Book bookUpdated = bookMapper.toBook(bookToBeUpdated,bookUpdateDTO);
+        Book updatedBook = bookRepository.save(bookUpdated);
+        return bookMapper.toBookDTO(updatedBook);
     }
 }

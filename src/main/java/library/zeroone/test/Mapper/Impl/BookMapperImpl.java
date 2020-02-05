@@ -1,6 +1,8 @@
 package library.zeroone.test.Mapper.Impl;
 
 import library.zeroone.test.DTO.BookDTO;
+import library.zeroone.test.DTO.BookInitializeDTO;
+import library.zeroone.test.DTO.BookUpdateDTO;
 import library.zeroone.test.Entities.Book;
 import library.zeroone.test.Mapper.BookMapper;
 import org.springframework.stereotype.Service;
@@ -17,5 +19,23 @@ public class BookMapperImpl implements BookMapper {
         bookDTO.setCategory(book.getCategory());
 
         return bookDTO;
+    }
+
+    @Override
+    public Book toBook(BookInitializeDTO bookInitializeDTO) {
+        Book book = new Book();
+        book.setAuthor(bookInitializeDTO.getAuthor());
+        book.setCategory(bookInitializeDTO.getCategory());
+        book.setName(bookInitializeDTO.getName());
+        return book;
+    }
+
+    @Override
+    public Book toBook(Book bookToBeUpdated, BookUpdateDTO bookUpdateDTO) {
+        Book book = new Book();
+        book.setName(bookUpdateDTO.getName());
+        book.setCategory(bookUpdateDTO.getCategory());
+        book.setAuthor(bookUpdateDTO.getAuthor());
+        return book;
     }
 }
