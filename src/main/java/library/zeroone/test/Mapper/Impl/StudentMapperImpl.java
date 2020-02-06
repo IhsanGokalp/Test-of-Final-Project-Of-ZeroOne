@@ -1,8 +1,8 @@
 package library.zeroone.test.Mapper.Impl;
 
-import library.zeroone.test.DTO.StudentDTO;
-import library.zeroone.test.DTO.StudentInitializeDTO;
-import library.zeroone.test.DTO.StudentUpdateDTO;
+import library.zeroone.test.DTO.Student.StudentDTO;
+import library.zeroone.test.DTO.Student.StudentInitializeDTO;
+import library.zeroone.test.DTO.Student.StudentUpdateDTO;
 import library.zeroone.test.Entities.Student;
 import library.zeroone.test.Mapper.StudentMapper;
 import org.springframework.stereotype.Service;

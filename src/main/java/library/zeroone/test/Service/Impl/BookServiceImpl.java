@@ -1,8 +1,9 @@
 package library.zeroone.test.Service.Impl;
 
-import library.zeroone.test.DTO.BookDTO;
-import library.zeroone.test.DTO.BookInitializeDTO;
-import library.zeroone.test.DTO.BookUpdateDTO;
+import library.zeroone.test.DTO.Book.BookDTO;
+import library.zeroone.test.DTO.Book.BookInitializeDTO;
+import library.zeroone.test.DTO.Book.BookQuantityUpdatingDTO;
+import library.zeroone.test.DTO.Book.BookUpdateDTO;
 import library.zeroone.test.Entities.Book;
 import library.zeroone.test.Mapper.BookMapper;
 import library.zeroone.test.Repository.BookRepository;
@@ -42,8 +43,25 @@ public class BookServiceImpl implements BookService {
         Book bookToBeUpdated = bookRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("No data found with the id " + id));
 
-        Book bookUpdated = bookMapper.toBook(bookToBeUpdated,bookUpdateDTO);
+        Book bookUpdated = bookMapper.toBook(bookToBeUpdated, bookUpdateDTO);
         Book updatedBook = bookRepository.save(bookUpdated);
         return bookMapper.toBookDTO(updatedBook);
+    }
+
+    @Override
+    public BookDTO findById(Long id) {
+        Book book = bookRepository.findById(id).
+                orElseThrow(() -> new EntityNotFoundException("No data found with the id " + id));
+
+        return bookMapper.toBookDTO(book);
+    }
+
+    @Override
+    public void updateQuantity(Long id, BookQuantityUpdatingDTO dto) {
+        Book updatingBook = bookRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("No data found with the id " + id));
+
+        updatingBook.setQuantity(dto.getQuantity());
+        bookRepository.save(updatingBook);
     }
 }

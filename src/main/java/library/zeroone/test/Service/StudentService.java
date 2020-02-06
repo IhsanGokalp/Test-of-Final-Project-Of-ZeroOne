@@ -1,8 +1,8 @@
 package library.zeroone.test.Service;
 
-import library.zeroone.test.DTO.StudentDTO;
-import library.zeroone.test.DTO.StudentInitializeDTO;
-import library.zeroone.test.DTO.StudentUpdateDTO;
+import library.zeroone.test.DTO.Student.StudentDTO;
+import library.zeroone.test.DTO.Student.StudentInitializeDTO;
+import library.zeroone.test.DTO.Student.StudentUpdateDTO;
 
 import java.util.List;
 

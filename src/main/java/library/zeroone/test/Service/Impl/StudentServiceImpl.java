@@ -1,8 +1,8 @@
 package library.zeroone.test.Service.Impl;
 
-import library.zeroone.test.DTO.StudentDTO;
-import library.zeroone.test.DTO.StudentInitializeDTO;
-import library.zeroone.test.DTO.StudentUpdateDTO;
+import library.zeroone.test.DTO.Student.StudentDTO;
+import library.zeroone.test.DTO.Student.StudentInitializeDTO;
+import library.zeroone.test.DTO.Student.StudentUpdateDTO;
 import library.zeroone.test.Entities.Student;
 import library.zeroone.test.Mapper.StudentMapper;
 import library.zeroone.test.Repository.StudentRepository;
@@ -48,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDTO update(Long id, StudentUpdateDTO studentUpdateDTO) {
         Student studentToBeUpdated = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No data found with the id " + id));
-        Student studentUpdated = studentMapper.toStudent(studentToBeUpdated,studentUpdateDTO);
+        Student studentUpdated = studentMapper.toStudent(studentToBeUpdated, studentUpdateDTO);
         Student updatedStudent = studentRepository.save(studentUpdated);
         return studentMapper.toStudentDTO(updatedStudent);
     }

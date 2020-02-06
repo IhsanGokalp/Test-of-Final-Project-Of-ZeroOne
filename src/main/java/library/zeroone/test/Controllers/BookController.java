@@ -1,10 +1,11 @@
 package library.zeroone.test.Controllers;
 
-import library.zeroone.test.DTO.BookDTO;
-import library.zeroone.test.DTO.BookInitializeDTO;
-import library.zeroone.test.DTO.BookUpdateDTO;
-import library.zeroone.test.DTO.StudentDTO;
+import library.zeroone.test.DTO.Book.BookDTO;
+import library.zeroone.test.DTO.Book.BookInitializeDTO;
+import library.zeroone.test.DTO.Book.BookQuantityUpdatingDTO;
+import library.zeroone.test.DTO.Book.BookUpdateDTO;
 import library.zeroone.test.Service.BookService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,19 @@ public class BookController {
         return bookService.save(bookInitializeDTO);
     }
 
+    @GetMapping("{/id}")
+    private BookDTO findById(@PathVariable Long id) {
+        return bookService.findById(id);
+    }
+
     @PutMapping("/{id}")
-    public BookDTO update(@PathVariable Long id, @RequestBody BookUpdateDTO bookUpdateDTO) {
+    private BookDTO update(@PathVariable Long id, @RequestBody BookUpdateDTO bookUpdateDTO) {
         return bookService.update(id, bookUpdateDTO);
+    }
+
+    @PutMapping("/{id}/updateQuantity")
+    private void updateQuantity(@RequestBody @Validated BookQuantityUpdatingDTO dto,
+                                @PathVariable Long id) {
+        bookService.updateQuantity(id, dto);
     }
 }

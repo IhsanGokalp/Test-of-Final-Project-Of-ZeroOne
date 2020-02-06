@@ -1,4 +1,4 @@
-package library.zeroone.test.DTO;
+package library.zeroone.test.DTO.Student;
 
 import lombok.Getter;
 import lombok.Setter;

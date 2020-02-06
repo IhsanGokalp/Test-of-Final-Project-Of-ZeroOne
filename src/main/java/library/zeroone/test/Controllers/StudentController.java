@@ -1,8 +1,8 @@
 package library.zeroone.test.Controllers;
 
-import library.zeroone.test.DTO.StudentDTO;
-import library.zeroone.test.DTO.StudentInitializeDTO;
-import library.zeroone.test.DTO.StudentUpdateDTO;
+import library.zeroone.test.DTO.Student.StudentDTO;
+import library.zeroone.test.DTO.Student.StudentInitializeDTO;
+import library.zeroone.test.DTO.Student.StudentUpdateDTO;
 import library.zeroone.test.Service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +20,12 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<StudentDTO> findAll() {
+    private List<StudentDTO> findAll() {
         return studentService.findAll();
     }
 
     @PostMapping()
-    public StudentDTO save(@RequestBody StudentInitializeDTO studentInitializeDTO) {
+    private StudentDTO save(@RequestBody StudentInitializeDTO studentInitializeDTO) {
         return studentService.save(studentInitializeDTO);
     }
 
