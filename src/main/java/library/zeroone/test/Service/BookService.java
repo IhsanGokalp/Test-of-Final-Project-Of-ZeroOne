@@ -1,10 +1,9 @@
 package library.zeroone.test.Service;
 
 
-import library.zeroone.test.DTO.Book.BookDTO;
-import library.zeroone.test.DTO.Book.BookInitializeDTO;
-import library.zeroone.test.DTO.Book.BookQuantityUpdatingDTO;
-import library.zeroone.test.DTO.Book.BookUpdateDTO;
+import library.zeroone.test.DTO.Book.*;
+import library.zeroone.test.Entities.Author;
+import library.zeroone.test.Entities.Book;
 
 
 import java.util.List;
@@ -15,4 +14,10 @@ public interface BookService {
     BookDTO update(Long id, BookUpdateDTO bookUpdateDTO);
     BookDTO findById(Long id);
     void updateQuantity(Long id, BookQuantityUpdatingDTO dto);
+    List<Book> findAllById(List<Long> ids);
+    Book updateAuthorOfBook(Book book, Author author);
+    List<Book> findBooksByAuthor(Author author);
+    List<BookDTO> findAllByName(BookFindingByNameDTO bookFindingByNameDTO);
+    List<BookDTO> findAllByCategory(BookFindingByCategoryDTO bookFindingByCategoryDTO);
+    List<BookDTO> search(BookSearchDTO bookSearchDTO);
 }

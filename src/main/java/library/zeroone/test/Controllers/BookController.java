@@ -1,9 +1,6 @@
 package library.zeroone.test.Controllers;
 
-import library.zeroone.test.DTO.Book.BookDTO;
-import library.zeroone.test.DTO.Book.BookInitializeDTO;
-import library.zeroone.test.DTO.Book.BookQuantityUpdatingDTO;
-import library.zeroone.test.DTO.Book.BookUpdateDTO;
+import library.zeroone.test.DTO.Book.*;
 import library.zeroone.test.Service.BookService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookController {
 
     private final BookService bookService;
@@ -44,5 +41,22 @@ public class BookController {
     private void updateQuantity(@RequestBody @Validated BookQuantityUpdatingDTO dto,
                                 @PathVariable Long id) {
         bookService.updateQuantity(id, dto);
+    }
+
+    @GetMapping("/searchByName")
+    private List<BookDTO> findBooksByName(
+            @RequestBody BookFindingByNameDTO bookFindingByNameDTO) {
+        return bookService.findAllByName(bookFindingByNameDTO);
+    }
+
+    @GetMapping("/searchByCategory")
+    private List<BookDTO> findBooksByCategory(
+            @RequestBody BookFindingByCategoryDTO bookFindingByCategoryDTO) {
+        return bookService.findAllByCategory(bookFindingByCategoryDTO);
+    }
+
+    @PostMapping("/search")
+    private List<BookDTO> search(@RequestBody BookSearchDTO bookSearchDTO) {
+        return bookService.search(bookSearchDTO);
     }
 }

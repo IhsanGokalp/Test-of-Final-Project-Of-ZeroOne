@@ -14,17 +14,18 @@ import java.time.LocalDate;
 @Table(name = "tblauthors")
 public class Author extends BaseEntity {
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "birthDate")
+    @Column(name = "birthdate")
     private LocalDate birthDate;
 
-    @Column(name = "deathDate")
+    @Column(name = "deathdate")
     private LocalDate deathDate;
 
+    @Column(name = "bibliography")
     private String bibliography;
 }

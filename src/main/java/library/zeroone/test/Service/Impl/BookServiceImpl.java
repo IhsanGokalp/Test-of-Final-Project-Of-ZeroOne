@@ -1,9 +1,7 @@
 package library.zeroone.test.Service.Impl;
 
-import library.zeroone.test.DTO.Book.BookDTO;
-import library.zeroone.test.DTO.Book.BookInitializeDTO;
-import library.zeroone.test.DTO.Book.BookQuantityUpdatingDTO;
-import library.zeroone.test.DTO.Book.BookUpdateDTO;
+import library.zeroone.test.DTO.Book.*;
+import library.zeroone.test.Entities.Author;
 import library.zeroone.test.Entities.Book;
 import library.zeroone.test.Mapper.BookMapper;
 import library.zeroone.test.Repository.BookRepository;
@@ -11,6 +9,7 @@ import library.zeroone.test.Service.BookService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,5 +62,53 @@ public class BookServiceImpl implements BookService {
 
         updatingBook.setQuantity(dto.getQuantity());
         bookRepository.save(updatingBook);
+    }
+
+    @Override
+    public List<Book> findAllById(List<Long> ids) {
+        return bookRepository.findAllById(ids);
+    }
+
+    @Override
+    public Book updateAuthorOfBook(Book book, Author author) {
+        book.setAuthor(author);
+        return bookRepository.save(book);
+    }
+
+    @Override
+    public List<Book> findBooksByAuthor(Author author) {
+        return bookRepository.findAllByAuthor(author);
+    }
+
+    @Override
+    public List<BookDTO> findAllByName(BookFindingByNameDTO bookFindingByNameDTO) {
+        List<Book> books = bookRepository.findAllByName(bookFindingByNameDTO.getName());
+        return bookConverter(books);
+    }
+
+    @Override
+    public List<BookDTO> findAllByCategory(BookFindingByCategoryDTO bookFindingByCategoryDTO) {
+        List<Book> books =
+                bookRepository.findAllByCategory(bookFindingByCategoryDTO.getCategory());
+        return bookConverter(books);
+    }
+
+    @Override
+    public List<BookDTO> search(BookSearchDTO bookSearchDTO) {
+        List<Book> result = bookRepository.
+                findAllByNameContainsIgnoreCase(bookSearchDTO.getSearchString());
+
+        return result.stream()
+                .map(bookMapper::toBookDTO)
+                .collect(Collectors.toList());
+    }
+
+    private List<BookDTO> bookConverter(List<Book> books) {
+        List<BookDTO> dtos = new ArrayList<>();
+        for (Book book : books) {
+            BookDTO bookDTO = bookMapper.toBookDTO(book);
+            dtos.add(bookDTO);
+        }
+        return dtos;
     }
 }
