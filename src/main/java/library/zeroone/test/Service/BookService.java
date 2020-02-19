@@ -4,6 +4,8 @@ package library.zeroone.test.Service;
 import library.zeroone.test.DTO.Book.*;
 import library.zeroone.test.Entities.Author;
 import library.zeroone.test.Entities.Book;
+import library.zeroone.test.FilterRequest.Book.BookFilterRequest;
+import org.springframework.data.domain.Page;
 
 
 import java.util.List;
@@ -19,5 +21,5 @@ public interface BookService {
     List<Book> findBooksByAuthor(Author author);
     List<BookDTO> findAllByName(BookFindingByNameDTO bookFindingByNameDTO);
     List<BookDTO> findAllByCategory(BookFindingByCategoryDTO bookFindingByCategoryDTO);
-    List<BookDTO> search(BookSearchDTO bookSearchDTO);
+    Page<BookDTO> search(BookFilterRequest bookFilterRequest);
 }

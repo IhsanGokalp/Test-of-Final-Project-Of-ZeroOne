@@ -1,7 +1,9 @@
 package library.zeroone.test.Controllers;
 
 import library.zeroone.test.DTO.Book.*;
+import library.zeroone.test.FilterRequest.Book.BookFilterRequest;
 import library.zeroone.test.Service.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +58,7 @@ public class BookController {
     }
 
     @PostMapping("/search")
-    private List<BookDTO> search(@RequestBody BookSearchDTO bookSearchDTO) {
-        return bookService.search(bookSearchDTO);
+    private Page<BookDTO> search(@RequestBody BookFilterRequest bookFilterRequest) {
+        return bookService.search(bookFilterRequest);
     }
 }

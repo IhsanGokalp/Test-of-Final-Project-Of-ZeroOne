@@ -3,9 +3,11 @@ package library.zeroone.test.Service.Impl;
 import library.zeroone.test.DTO.Book.*;
 import library.zeroone.test.Entities.Author;
 import library.zeroone.test.Entities.Book;
+import library.zeroone.test.FilterRequest.Book.BookFilterRequest;
 import library.zeroone.test.Mapper.BookMapper;
 import library.zeroone.test.Repository.BookRepository;
 import library.zeroone.test.Service.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -94,13 +96,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDTO> search(BookSearchDTO bookSearchDTO) {
-        List<Book> result = bookRepository.
-                findAllByNameContainsIgnoreCase(bookSearchDTO.getSearchString());
-
-        return result.stream()
-                .map(bookMapper::toBookDTO)
-                .collect(Collectors.toList());
+    public Page<BookDTO> search(BookFilterRequest bookFilterRequest) {
+        return bookRepository.findAll(bookFilterRequest.getPageRequest())
+                .map(bookMapper::toBookDTO);
     }
 
     private List<BookDTO> bookConverter(List<Book> books) {
